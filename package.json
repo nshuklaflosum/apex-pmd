@@ -1,0 +1,31 @@
+{
+  "name": "apex_pmd",
+  "version": "2.7.2",
+  "description": "Apex_PMD",
+  "author": "Flosum",
+  "dependencies": {
+    "express": "^4.18.1",
+    "adm-zip": "^0.5.9",
+    "http": "0.0.0",
+    "jsforce": "^1.11.0",
+    "request": "^2.88.0"
+  },
+  "overrides": {
+    "jsforce": {
+      "lodash": "4.17.21"
+    }
+  },
+  "files": [
+    "/dist"
+  ],
+  "license": "BSD",
+  "main": "index.js",
+  "pmd": {
+    "version": "6.48.0"
+  },
+  "scripts": {
+    "test": "bash test.sh",
+    "start": "node index.js",
+    "build-docker": "npm install && bash build.docker.sh"
+  }
+}
