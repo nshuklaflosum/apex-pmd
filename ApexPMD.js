@@ -3,8 +3,8 @@ const fs = require('fs');
 const jsforce = require('jsforce');
 const child_process = require('child_process');
 
-const NAME_SPACE_PREFIX = 'Flosum__';
-const URL_POST = '/Flosum/async';
+const NAME_SPACE_PREFIX = process.env.NODE_ENV === 'development' ? '' : 'Flosum__';
+const URL_POST = process.env.NODE_ENV=== 'development' ? '/async' : '/Flosum/async';
 
 class ApexPMD {
 
@@ -161,8 +161,19 @@ class ApexPMD {
                 {
                     if (fs.existsSync('./'+self.jobId+'/ruls.xml'))
                     {
-                        var workerProcess = child_process.execSync('bash dist/pmd-bin/bin/run.sh pmd --fail-on-violation false --dir ./'+self.jobId+'/'+' -f csv -r ./'+self.jobId+'/result.csv --rulesets ./'+self.jobId+'/ruls.xml --property problem=false --property package=false --property ruleSet=false --short-names -t 0',function
-                            (error, stdout, stderr) {
+                        var workerProcess = child_process.execSync(
+                            'bash dist/pmd-bin/bin/pmd check ' +
+                            '--no-fail-on-violation ' +
+                            '--dir ./'+self.jobId+'/ '+
+                            '--format csv ' +
+                            '--report-file ./'+self.jobId+'/result.csv ' +
+                            '--rulesets ./'+self.jobId+'/ruls.xml ' +
+                            '--property problem=false ' +
+                            '--property package=false ' +
+                            '--property ruleSet=false ' +
+                            '--relativize-paths-with ./'+self.jobId+'/ ' +
+                            '--threads 0',
+                            function (error, stdout, stderr) {
                             if (error) {
                                 self.createErrorLog(error.stack);
                                 self.isContinue = false;

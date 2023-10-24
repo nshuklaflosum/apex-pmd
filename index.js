@@ -57,7 +57,7 @@ app.get('/oauth/token', authCheck, (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Ok. Ver:2.8.0. Ver.PMD: 6.48.0');
+  res.send('Ok. Ver:3.0.0. Ver.PMD: 7.0.0');
 });
 
 function authCheck (req, res, next) {

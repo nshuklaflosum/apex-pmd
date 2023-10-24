@@ -1,6 +1,7 @@
-FROM --platform=$BUILDPLATFORM node:18-alpine3.17
+FROM --platform=$BUILDPLATFORM node:18.17.1-alpine3.17
 
 RUN apk add --no-cache bash
+RUN apk add --no-cache openssl=3.0.11-r0
 
 RUN { \
         echo '#!/bin/sh'; \
